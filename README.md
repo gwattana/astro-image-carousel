@@ -13,7 +13,7 @@ A responsive and accessible image carousel component built with **Astro**, **Tai
 
 ## Demo
 
-View the demo of the carousel here: https://astro-image-carousel-konheqdfe-gwattanas-projects.vercel.app
+View the demo of the carousel here: https://astro-image-carousel.vercel.app/
 
 ## Setup Instructions
 
