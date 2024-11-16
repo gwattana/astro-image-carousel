@@ -13,7 +13,7 @@ interface Props {
 const { images } = Astro.props;
 ---
 
-<section class="relative w-full mb-10">
+<section class="relative w-full" role="region" aria-label="Image carousel">
   <!-- Carousel Wrapper -->
   <div class="relative overflow-hidden w-full">
 
@@ -28,7 +28,7 @@ const { images } = Astro.props;
         <img
           src={image.src}
           alt={image.alt}
-          class="snap-start w-full h-full object-cover"
+          class="snap-start w-full h-full object-cover aspect-[16/9]"
           loading="lazy"
         />
       ))}
@@ -82,7 +82,7 @@ const { images } = Astro.props;
     const navigationButtons = document.querySelectorAll<HTMLButtonElement>("[data-action]");
     let currentIndex = 0;
     const autoplayInterval = 3000; // Change slides every 3 seconds
-    let autoplayTimer: number;
+    let autoplayTimer: ReturnType<typeof setInterval>;
 
     // Updates the carousel to show the slide at the given index.
     function updateCarousel(index: number): void {
