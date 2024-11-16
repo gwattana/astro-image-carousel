@@ -1,54 +1,86 @@
-# Astro Starter Kit: Basics
+# Image Carousel
 
-```sh
-npm create astro@latest -- --template basics
-```
+A responsive and accessible image carousel component built with **Astro**, **Tailwind CSS**, and minimal JavaScript. This carousel allows users to navigate through images horizontally with smooth transitions, responsive design, and accessible navigation features.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Features
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Responsive Design**: Works seamlessly on desktop and mobile devices.
+- **Horizontal Scrolling**: Allows users to scroll through images with smooth transitions.
+- **Navigation**: Includes next/previous buttons for manual navigation and clickable indicators (dots).
+- **Autoplay**: Automatically cycles through images every 3 seconds with pause/resume functionality on hover.
+- **Accessibility**: Fully accessible with ARIA labels for screen readers.
+- **Lazy Loading**: Images load lazily for better performance.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## Demo
 
-## 🚀 Project Structure
+View the demo of the carousel here: https://astro-image-carousel-konheqdfe-gwattanas-projects.vercel.app
 
-Inside of your Astro project, you'll see the following folders and files:
+## Setup Instructions
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/your-username/image-carousel.git
+    cd image-carousel
+    ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+2. **Install dependencies**:
+    Install the required dependencies using npm or yarn.
+    ```bash
+    npm install
+    ```
+    or
+    ```bash
+    yarn install
+    ```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+3. **Run the project**:
+    Start the development server.
+    ```bash
+    npm run dev
+    ```
+    or
+    ```bash
+    yarn dev
+    ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+4. **Open the project**:
+    Navigate to `http://localhost:4321` to view the carousel in your browser.
 
-## 🧞 Commands
+## Design Decisions
 
-All commands are run from the root of the project, from a terminal:
+- **Tailwind CSS** was chosen for utility-first styling, ensuring a clean and maintainable CSS structure.
+- The carousel uses **CSS scroll-snap** for smooth horizontal scrolling, reducing the need for JavaScript animations.
+- **Autoplay** is handled via a lightweight JavaScript function that updates the current slide at regular intervals.
+- **JavaScript light**: We minimized JavaScript usage by relying on Tailwind’s utility classes and CSS features where possible.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Performance Considerations
 
-## 👀 Want to learn more?
+- **Lazy loading** of images to reduce initial page load time.
+- **Autoplay pause on hover**: Stops autoplay when users hover over the carousel, improving interaction.
+- **Minimal JavaScript**: Only essential logic for image navigation and autoplay, ensuring the page remains fast and responsive.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Browser Compatibility
+
+This carousel should work across modern browsers, including:
+
+- Chrome
+- Firefox
+- Safari
+- Edge
+
+Older browsers (e.g., Internet Explorer) may not support some CSS features like `scroll-snap`, so it is recommended to use a more modern browser.
+
+## Assumptions
+
+- The carousel is designed to handle a fixed number of images, but the number can be easily adjusted.
+- **Tailwind CSS** is set up with the default configuration, but you can modify the configuration as needed for custom themes or breakpoints.
+
+## Improvements and Next Steps
+
+- Add support for swipe gestures on mobile devices.
+- Allow the user to customize the autoplay interval and disable it if desired.
+- Enhance performance further by preloading images in the background.
+
+## License
+
+This project is licensed under the MIT License.
