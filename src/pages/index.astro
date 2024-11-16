@@ -3,28 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import ImageCarousel from '../components/Carousel.astro';
 
 const images = [
-  { src: "https://picsum.photos/800/400?random=1", alt: "Image 1" },
-  { src: "https://picsum.photos/800/400?random=2", alt: "Image 2" },
-  { src: "https://picsum.photos/800/400?random=3", alt: "Image 3" },
-  { src: "https://picsum.photos/800/400?random=4", alt: "Image 4" },
-  { src: "https://picsum.photos/800/400?random=5", alt: "Image 5" },
+  { src: 'https://picsum.photos/800/400?random=1', alt: 'Image 1' },
+  { src: 'https://picsum.photos/800/400?random=2', alt: 'Image 2' },
+  { src: 'https://picsum.photos/800/400?random=3', alt: 'Image 3' },
+  { src: 'https://picsum.photos/800/400?random=4', alt: 'Image 4' },
+  { src: 'https://picsum.photos/800/400?random=5', alt: 'Image 5' },
 ];
 ---
 
-<Layout title="Image Carousel+" >
-	<main >
-		<ImageCarousel images={images} />
-	</main>
+<Layout title='Image Carousel'>
+  <main>
+    <ImageCarousel images={images} />
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
 </style>
