@@ -1,5 +1,5 @@
 ---
-import Spinner from '../components/Spinner.astro';
+import { Image } from 'astro:assets';
 interface IImage {
   src: string;
   alt: string;
@@ -18,23 +18,19 @@ const { images } = Astro.props;
     <!-- Carousel Items -->
     <div
       id='carousel'
-      class='flex aspect-[16/9] snap-x snap-mandatory overflow-x-auto md:overflow-hidden scroll-smooth rounded-lg'
+      class='flex aspect-[16/9] snap-x snap-mandatory overflow-x-auto overflow-y-hidden md:overflow-hidden scroll-smooth rounded-lg'
       tabindex='0'
       aria-live='polite'
     >
       {
         images?.map((image) => (
-          <div class='relative w-full h-full aspect-[16/9]'>
-            {/* Spinner for image loading */}
-            <Spinner />
-
-            {/* Hide spinner on loaded */}
-            <img
+          <div class='relative w-full h-full aspect-[16/9] '>
+            <Image
               src={image.src}
               alt={image.alt}
-              class='snap-start w-full h-full object-cover'
-              loading='lazy'
-              onload="this.previousElementSibling.classList.add('hidden');"
+              inferSize
+              class='w-full h-full'
+              loading={'lazy'}
             />
           </div>
         ))
