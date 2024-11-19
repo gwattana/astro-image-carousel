@@ -1,0 +1,21 @@
+---
+interface Props {
+  direction: 'prev' | 'next';
+  class?: string; // Optional class prop
+}
+
+const { direction, class: additionalClass, ...rest } = Astro.props;
+---
+
+<button
+  type='button'
+  class={`flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none z-30 ${additionalClass}`}
+  aria-label={direction === 'prev' ? 'Previous slide' : 'Next slide'}
+  {...rest}
+>
+  <span
+    class='inline-flex items-center justify-center w-7 h-7 md:w-10 md:h-10 rounded-full bg-black/30 hover:bg-black/50 pb-1'
+  >
+    {direction === 'prev' ? '‹' : '›'}
+  </span>
+</button>

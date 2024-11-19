@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import ToggleButton from './ToggleButton.astro';
 import Spinner from './Spinner.astro';
+import NavigationButton from './NavigationButton.astro';
+import Indicators from './Indicator.astro';
 interface IImage {
   src: string;
   alt: string;
@@ -51,42 +53,20 @@ const { images } = Astro.props;
         ))
       }
     </div>
-
     <!-- Navigation Buttons -->
-    <button
-      type='button'
-      class='top-0 left-1 md:left-4 navigation-button-wrapper'
-      data-action='prev'
-      aria-label='Previous slide'
-    >
-      <span class='navigation-button'> &#8249; </span>
-    </button>
-    <button
-      type='button'
-      class='top-0 right-1 md:right-4 navigation-button-wrapper'
-      data-action='next'
-      aria-label='Next slide'
-    >
-      <span class='navigation-button'> &#8250; </span>
-    </button>
+    <NavigationButton
+      direction='prev'
+      class='absolute left-4 top-0'
+      data-action={'prev'}
+    />
+    <NavigationButton
+      direction='next'
+      class='absolute right-4 top-0'
+      data-action={'next'}
+    />
 
     <!-- Indicators -->
-    <div
-      id='indicators'
-      class='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2'
-    >
-      {
-        images?.map((_, index) => (
-          <button
-            class={`indicator w-2 md:w-3 h-2 md:h-3 rounded-full ${
-              index === 0 ? 'bg-gray-800' : 'bg-gray-400'
-            }`}
-            data-slide-index={index}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))
-      }
-    </div>
+    <Indicators count={images.length} />
   </div>
 </section>
 
@@ -95,7 +75,7 @@ const { images } = Astro.props;
     const carousel = document.querySelector<HTMLDivElement>('#carousel')!;
     const images = carousel.querySelectorAll<HTMLImageElement>('img');
     const indicators =
-      document.querySelectorAll<HTMLButtonElement>('.indicator');
+      carousel.querySelectorAll<HTMLButtonElement>('.indicator');
     const navigationButtons =
       document.querySelectorAll<HTMLButtonElement>('[data-action]');
     let currentIndex = 0;
@@ -211,12 +191,4 @@ const { images } = Astro.props;
   });
 </script>
 
-<style>
-  .navigation-button-wrapper {
-    @apply absolute z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
-  }
-
-  .navigation-button {
-    @apply inline-flex items-center justify-center w-7 h-7 md:w-10 md:h-10 rounded-full bg-black/30 hover:bg-black/50 pb-1;
-  }
-</style>
+<style></style>
