@@ -32,7 +32,7 @@ const { images } = Astro.props;
     >
       {
         images?.map((image) => (
-          <div class='relative w-full h-full aspect-[16/9] touch-pan-x'>
+          <div class='relative w-full h-full aspect-[16/9] touch-pan-x snap-center'>
             <Image
               src={image.src}
               alt={image.alt}
@@ -124,10 +124,14 @@ const { images } = Astro.props;
 
     // Start the autoplay.
     function startAutoplay(): void {
-      autoplayTimer = setInterval(() => {
-        const newIndex = (currentIndex + 1) % images.length;
-        updateCarousel(newIndex);
-      }, autoplayInterval);
+      if (autoplayTimer) clearInterval(autoplayTimer); // Clear existing timer
+
+      if (isAutoplay) {
+        autoplayTimer = setInterval(() => {
+          const newIndex = (currentIndex + 1) % images.length;
+          updateCarousel(newIndex);
+        }, autoplayInterval);
+      }
     }
 
     // Stop the autoplay.
@@ -146,9 +150,13 @@ const { images } = Astro.props;
       const target = e.target as HTMLInputElement;
 
       if (target.checked) {
-        isAutoplay = true; // Startt auto-play when checked
+        // Start auto-play when checked
+        isAutoplay = true;
+        startAutoplay();
       } else {
-        isAutoplay = false; // Stop auto-play when unchecked
+        // Stop auto-play when unchecked
+        isAutoplay = false;
+        stopAutoplay();
       }
     });
 
@@ -176,25 +184,10 @@ const { images } = Astro.props;
 
     // Resume autoplay when focus or mouse leaves
     carousel.addEventListener('mouseout', () => {
-      if (isAutoplay) {
-        startAutoplay();
-      }
+      if (isAutoplay) startAutoplay();
     });
     carousel.addEventListener('focusout', () => {
-      if (isAutoplay) {
-        startAutoplay();
-      }
-    });
-
-    // Toggle autoplay based on the checkbox input (from the toggle button component)
-    autoPlayToggle.addEventListener('change', (e) => {
-      const target = e.target as HTMLInputElement;
-      isAutoplay = target.checked; // Update autoplay status based on toggle checkbox
-      if (isAutoplay) {
-        startAutoplay(); // Start autoplay if enabled
-      } else {
-        stopAutoplay(); // Stop autoplay if disabled
-      }
+      if (isAutoplay) startAutoplay();
     });
   });
 </script>
