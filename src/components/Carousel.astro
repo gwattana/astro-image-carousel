@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ToggleButton from './ToggleButton.astro';
 interface IImage {
   src: string;
   alt: string;
@@ -15,6 +16,13 @@ const { images } = Astro.props;
 <section class='relative w-full' role='region' aria-label='Image carousel'>
   <!-- Carousel Wrapper -->
   <div class='relative overflow-hidden w-full'>
+    <!-- Toggle Box -->
+    <div
+      class='absolute top-4 right-4 z-20 bg-white bg-opacity-40 rounded-lg p-2 flex'
+    >
+      <ToggleButton id='autoplay-toggle' label='Auto play' />
+    </div>
+
     <!-- Carousel Items -->
     <div
       id='carousel'
@@ -24,13 +32,13 @@ const { images } = Astro.props;
     >
       {
         images?.map((image) => (
-          <div class='relative w-full h-full aspect-[16/9] '>
+          <div class='relative w-full h-full aspect-[16/9] touch-pan-x'>
             <Image
               src={image.src}
               alt={image.alt}
               inferSize
               class='w-full h-full'
-              loading={'lazy'}
+              loading='lazy'
             />
           </div>
         ))
@@ -86,6 +94,8 @@ const { images } = Astro.props;
     let currentIndex = 0;
     const autoplayInterval = 3000; // Change slides every 3 seconds
     let autoplayTimer: ReturnType<typeof setInterval>;
+    let isAutoplay = true;
+    const autoPlayToggle = document.getElementById('autoplay-toggle')!;
 
     // Updates the carousel to show the slide at the given index.
     function updateCarousel(index: number): void {
@@ -131,6 +141,17 @@ const { images } = Astro.props;
       startAutoplay();
     }
 
+    // Event listener for auto-play toggle
+    autoPlayToggle.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target.checked) {
+        isAutoplay = true; // Startt auto-play when checked
+      } else {
+        isAutoplay = false; // Stop auto-play when unchecked
+      }
+    });
+
     // Add event listeners for navigation buttons
     navigationButtons.forEach((button) => {
       button.addEventListener('click', () =>
@@ -151,9 +172,30 @@ const { images } = Astro.props;
 
     // Pause autoplay on hover or focus
     carousel.addEventListener('mouseover', stopAutoplay);
-    carousel.addEventListener('mouseout', startAutoplay);
     carousel.addEventListener('focusin', stopAutoplay);
-    carousel.addEventListener('focusout', startAutoplay);
+
+    // Resume autoplay when focus or mouse leaves
+    carousel.addEventListener('mouseout', () => {
+      if (isAutoplay) {
+        startAutoplay();
+      }
+    });
+    carousel.addEventListener('focusout', () => {
+      if (isAutoplay) {
+        startAutoplay();
+      }
+    });
+
+    // Toggle autoplay based on the checkbox input (from the toggle button component)
+    autoPlayToggle.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      isAutoplay = target.checked; // Update autoplay status based on toggle checkbox
+      if (isAutoplay) {
+        startAutoplay(); // Start autoplay if enabled
+      } else {
+        stopAutoplay(); // Stop autoplay if disabled
+      }
+    });
   });
 </script>
 
