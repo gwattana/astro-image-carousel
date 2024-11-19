@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import ToggleButton from './ToggleButton.astro';
+import Spinner from './Spinner.astro';
 interface IImage {
   src: string;
   alt: string;
@@ -33,6 +34,10 @@ const { images } = Astro.props;
       {
         images?.map((image) => (
           <div class='relative w-full h-full aspect-[16/9] touch-pan-x snap-center'>
+            {/* Spinner */}
+            <div class='absolute inset-0 flex items-center justify-center'>
+              <Spinner class='w-6 h-6 ' />
+            </div>
             <Image
               src={image.src}
               alt={image.alt}
@@ -96,6 +101,18 @@ const { images } = Astro.props;
     let autoplayTimer: ReturnType<typeof setInterval>;
     let isAutoplay = true;
     const autoPlayToggle = document.getElementById('autoplay-toggle')!;
+
+    images.forEach((img: HTMLImageElement) => {
+      const spinner = img.previousElementSibling as HTMLElement;
+      if (img.complete) {
+        spinner.style.display = 'none'; // Hide spinner immediately if image is already loaded
+        return;
+      }
+
+      img.addEventListener('load', () => {
+        spinner.style.display = 'none'; // Hide spinner when image is loaded
+      });
+    });
 
     // Updates the carousel to show the slide at the given index.
     function updateCarousel(index: number): void {
