@@ -19,12 +19,15 @@ const { images } = Astro.props;
 <section class="relative w-full" role="region" aria-label="Image carousel">
   <h2>Image Carousel</h2>
 
+  <!-- Preload critical images -->
+  <link rel="preload" href={images[0].src} as="image">
+  <link rel="preload" href={images[1]?.src} as="image">
+  <link rel="preload" href={images[2 ]?.src} as="image">
+
   <!-- Carousel Wrapper -->
   <div class="relative w-full overflow-hidden">
     <!-- Toggle Box -->
-    <div
-      class="absolute right-4 top-4 z-20 flex rounded-lg bg-white bg-opacity-40 p-2"
-    >
+    <div class="absolute right-4 top-4 z-20 flex rounded-lg bg-white bg-opacity-40 p-2">
       <ToggleButton id="autoplay-toggle" label="Auto play" />
     </div>
 
@@ -36,34 +39,28 @@ const { images } = Astro.props;
       aria-live="polite"
     >
       {
-        images?.map((image) => (
+        images?.map((image, index) => (
           <div class="relative aspect-[16/9] h-full w-full touch-pan-x snap-center">
             {/* Spinner */}
             <div class="absolute inset-0 flex items-center justify-center">
               <Spinner class="h-6 w-6" />
             </div>
+            {/* Preload first 3 images  */}
             <Image
               src={image.src}
               alt={image.alt}
               inferSize
               class="h-full w-full"
-              loading="lazy"
+              loading={index < 3 ? 'eager' : 'lazy'} 
             />
           </div>
         ))
       }
     </div>
+
     <!-- Navigation Buttons -->
-    <NavigationButton
-      direction="prev"
-      class="absolute left-4 top-0"
-      data-action={'prev'}
-    />
-    <NavigationButton
-      direction="next"
-      class="absolute right-4 top-0"
-      data-action={'next'}
-    />
+    <NavigationButton direction="prev" class="absolute left-4 top-0" data-action="prev" />
+    <NavigationButton direction="next" class="absolute right-4 top-0" data-action="next" />
 
     <!-- Indicators -->
     <Indicators count={images.length} />
@@ -74,10 +71,8 @@ const { images } = Astro.props;
   document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector<HTMLDivElement>('#carousel')!;
     const images = carousel.querySelectorAll<HTMLImageElement>('img');
-    const indicators =
-      document.querySelectorAll<HTMLButtonElement>('.indicator');
-    const navigationButtons =
-      document.querySelectorAll<HTMLButtonElement>('[data-action]');
+    const indicators = carousel.querySelectorAll<HTMLButtonElement>('.indicator');
+    const navigationButtons = document.querySelectorAll<HTMLButtonElement>('[data-action]');
     let currentIndex = 0;
     const autoplayInterval = 3000; // Change slides every 3 seconds
     let autoplayTimer: ReturnType<typeof setInterval>;
