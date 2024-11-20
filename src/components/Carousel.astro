@@ -75,7 +75,7 @@ const { images } = Astro.props;
     const carousel = document.querySelector<HTMLDivElement>('#carousel')!;
     const images = carousel.querySelectorAll<HTMLImageElement>('img');
     const indicators =
-      carousel.querySelectorAll<HTMLButtonElement>('.indicator');
+      document.querySelectorAll<HTMLButtonElement>('.indicator');
     const navigationButtons =
       document.querySelectorAll<HTMLButtonElement>('[data-action]');
     let currentIndex = 0;
