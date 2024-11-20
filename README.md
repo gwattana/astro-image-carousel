@@ -18,33 +18,40 @@ View the demo of the carousel here: https://astro-image-carousel.vercel.app/
 ## Setup Instructions
 
 1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/your-username/image-carousel.git
-    cd image-carousel
-    ```
+
+   ```bash
+   git clone https://github.com/your-username/image-carousel.git
+   cd image-carousel
+   ```
 
 2. **Install dependencies**:
-    Install the required dependencies using npm or yarn.
-    ```bash
-    npm install
-    ```
-    or
-    ```bash
-    yarn install
-    ```
+   Install the required dependencies using npm or yarn.
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn install
+   ```
 
 3. **Run the project**:
-    Start the development server.
-    ```bash
-    npm run dev
-    ```
-    or
-    ```bash
-    yarn dev
-    ```
+   Start the development server.
+
+   ```bash
+   npm run dev
+   ```
+
+   or
+
+   ```bash
+   yarn dev
+   ```
 
 4. **Open the project**:
-    Navigate to `http://localhost:4321` to view the carousel in your browser.
+   Navigate to `http://localhost:4321` to view the carousel in your browser.
 
 ## Design Decisions
 

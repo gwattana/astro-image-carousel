@@ -16,38 +16,38 @@ interface Props {
 const { images } = Astro.props;
 ---
 
-<section class='relative w-full' role='region' aria-label='Image carousel'>
+<section class="relative w-full" role="region" aria-label="Image carousel">
   <h2>Image Carousel</h2>
 
   <!-- Carousel Wrapper -->
-  <div class='relative overflow-hidden w-full'>
+  <div class="relative w-full overflow-hidden">
     <!-- Toggle Box -->
     <div
-      class='absolute top-4 right-4 z-20 bg-white bg-opacity-40 rounded-lg p-2 flex'
+      class="absolute right-4 top-4 z-20 flex rounded-lg bg-white bg-opacity-40 p-2"
     >
-      <ToggleButton id='autoplay-toggle' label='Auto play' />
+      <ToggleButton id="autoplay-toggle" label="Auto play" />
     </div>
 
     <!-- Carousel Items -->
     <div
-      id='carousel'
-      class='flex aspect-[16/9] snap-x snap-mandatory overflow-x-auto overflow-y-hidden md:overflow-hidden scroll-smooth rounded-lg'
-      tabindex='0'
-      aria-live='polite'
+      id="carousel"
+      class="flex aspect-[16/9] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth rounded-lg md:overflow-hidden"
+      tabindex="0"
+      aria-live="polite"
     >
       {
         images?.map((image) => (
-          <div class='relative w-full h-full aspect-[16/9] touch-pan-x snap-center'>
+          <div class="relative aspect-[16/9] h-full w-full touch-pan-x snap-center">
             {/* Spinner */}
-            <div class='absolute inset-0 flex items-center justify-center'>
-              <Spinner class='w-6 h-6 ' />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <Spinner class="h-6 w-6" />
             </div>
             <Image
               src={image.src}
               alt={image.alt}
               inferSize
-              class='w-full h-full'
-              loading='lazy'
+              class="h-full w-full"
+              loading="lazy"
             />
           </div>
         ))
@@ -55,13 +55,13 @@ const { images } = Astro.props;
     </div>
     <!-- Navigation Buttons -->
     <NavigationButton
-      direction='prev'
-      class='absolute left-4 top-0'
+      direction="prev"
+      class="absolute left-4 top-0"
       data-action={'prev'}
     />
     <NavigationButton
-      direction='next'
-      class='absolute right-4 top-0'
+      direction="next"
+      class="absolute right-4 top-0"
       data-action={'next'}
     />
 
@@ -162,7 +162,7 @@ const { images } = Astro.props;
     // Add event listeners for navigation buttons
     navigationButtons.forEach((button) => {
       button.addEventListener('click', () =>
-        handleNavigation(button.dataset.action!)
+        handleNavigation(button.dataset.action!),
       );
     });
 
